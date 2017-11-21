@@ -251,3 +251,9 @@ router.post("/roster/take/") {
     response.send("alert('Take selected for "+option+" @ "+token+"');")
 }
 
+// Add an HTTP server and connect it to the router
+Kitura.addHTTPServer(onPort: 8080, with: router)
+
+// Start the Kitura runloop (this call never returns)
+Kitura.run()
+
