@@ -1,0 +1,25 @@
+<html>
+
+<body>
+
+<h1>NCI {{station}} View/Edit Roster</h1>
+&nbsp;
+<h2>User: {{user}} {% if isManager %} [ RosterManager ] {% endif %}<h2>
+&nbsp;
+<h2>WatchTime: {{time}}</h2>
+&nbsp;
+<h2>
+Assigned Watchkeepers: &nbsp;&nbsp;&nbsp; {{keepers.count}}</h2>
+&nbsp;
+{% for keeper in keepers %}
+<h2>{{keeper.name}} &nbsp;&nbsp;&nbsp; {% if isManager or (keeper.name == user) %} <button>Delete from this watch</button> {% endif %}</h2>
+{% endfor %}
+&nbsp;
+<h2>Regular Watchkeepers: &nbsp;&nbsp;&nbsp; {{regulars.count}}</h2>
+&nbsp;
+{% for keeper in regulars %}
+<h2>{{keeper.name}}  &nbsp;&nbsp;&nbsp; {% if isManager or (keeper.name == user) %} <button>Delete from regular watch</button> {% endif %}</h2>
+{% endfor %}
+</body>
+
+</html>

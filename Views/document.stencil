@@ -1,0 +1,10 @@
+<html>
+<body>
+<h1>There are {{ articles.count }} articles.</h1>
+<ul>
+{% for article in articles %}
+<li>{{ article.title }} by {{ article.author }}</li>
+{% endfor %}
+</ul>
+</body>
+</html>

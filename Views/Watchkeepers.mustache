@@ -1,0 +1,22 @@
+<div class="modal-content">
+<div class="modal-header" align='center'>
+<span class="close" onclick='modal.style.display="none";'>&times;</span>
+<h1>Watchkeeper Profile</h1>
+</div>
+<div class="modal-body" align='center'>
+<form id='myform' action="">
+Select Watchkeeper: <select id = 'keeper' name="customers" onchange="loadDoc('/watchkeeper/'+this.value+'/', 'watcher');">
+<option value="">Select a Watchkeeper:</option>
+<option value="append">Add New Watchkeeper</option>
+{{#watchers}}
+<option value="{{uuid}}">{{name}}</option>
+{{/watchers}}
+</select>
+</form>
+<br>
+<div id="watcher" align='center'>Selected Watchkeeper info will be listed here...</div>
+</div>
+<div class="modal-footer">
+<br>
+</div>
+</div>

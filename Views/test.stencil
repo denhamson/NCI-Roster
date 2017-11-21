@@ -1,0 +1,240 @@
+<html>
+<head>
+<style>
+td.Sunday {
+color: red;
+}
+td.Saturday {
+color: red;
+}
+button.red {
+background-color:red;
+width:100%;
+}
+button.blue {
+background-color:cyan;
+width:100%;
+}
+button.orange {
+background-color:orange;
+width:100%;
+}
+button.green {
+background-color:green;
+color:white;
+width:100%;
+}
+button.lime {
+background-color:lime;
+color:white;
+width:100%;
+}
+button.yellow {
+background-color:yellow;
+width:100%;
+}
+button.gold {
+background-color:gold;
+width:100%;
+}
+button.grey {
+background-color:lightgray;
+width:100%;
+}
+.text {
+size:50;
+}
+/* The Modal (background) */
+.modal {
+display: none; /* Hidden by default */
+position: fixed; /* Stay in place */
+z-index: 1; /* Sit on top */
+padding-top: 100px; /* Location of the box */
+left: 0;
+top: 0;
+width: 100%; /* Full width */
+height: 100%; /* Full height */
+overflow: auto; /* Enable scroll if needed */
+background-color: rgb(0,0,0); /* Fallback color */
+background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+background-color: #fefefe;
+margin: auto;
+padding: 20px;
+border: 1px solid #888;
+width: 80%;
+align: center;
+}
+
+/* Modal Buttons */
+.close {
+color: #aaaaaa;
+float: right;
+font-size: 28px;
+font-weight: bold;
+}
+
+/* The Close Button */
+.close {
+color: #aaaaaa;
+float: right;
+font-size: 28px;
+font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+color: #000;
+text-decoration: none;
+cursor: pointer;
+}
+
+</style>
+</head>
+<body>
+
+<h1 align='center'>{{siteSelected}} - {{monthSelected}}</h1>
+</h2>
+<table border = 1 align = 'center'>
+<thead>
+<tr>
+<td colspan = 2 align='center'>Day of Month</td>
+{% for watch in watches %}
+<td colspan = 2 align='center'>{{ watch.watch }}</td>
+{% endfor %}
+</tr>
+</thead>
+<tbody>
+{% for day in days %}
+<tr>
+<td align='center' class='{{day.weekday}}'>{{ day.weekday }}</td>
+<td align='center' class='{{day.weekday}}'>{{ day.day }}</td>
+{% for watch in day.watches %}
+<td align='center'>
+{% if watch.class1  %}
+<button class='{{watch.class1}}' onclick="loadDoc('/roster/{{watch.rosterId}}/','manage');">{{ watch.watch1 }}</button>
+{% else %}
+&nbsp;{{ watch.watch1 }}&nbsp;
+{% endif %}
+</td>
+<td align='center'>
+{% if watch.class2 %}
+<button class='{{watch.class2}}' onclick="loadDoc('/roster/{{watch.rosterId}}/','manage');">{{ watch.watch2 }}</button>
+{% else %}
+&nbsp;{{ watch.watch2 }}&nbsp;
+{% endif %}
+</td>
+{% endfor %}
+</tr>
+{% endfor %}
+</tbody>
+</table>
+
+<!-- Modal Clear Watch-->
+<div id="clearModal" class="modal">
+
+<!-- Modal content -->
+<div class="modal-content">
+<span class="close" onclick='clearModal.style.display = "none"'>&times;</span>
+<h1 align='center'>Cancel this watch</h1>
+<p>&nbsp;</p>
+<form action='/roster/clear/' method='post' align='center' target='_parent'>
+<table align='center'>
+<tr><td align = 'right'>WatchKeeper:</td><td><input id = 'clearKeeper' class='text' type='text' name = 'keeper' value = '{{watcher}}' readonly></td>
+<tr><td align = 'right'>Site:</td><td><input id = 'clearSite' class='text' type='text' name = 'site' value = '{{site}}' readonly></td>
+<tr><td align = 'right'>Month:</td><td><input id = 'clearMonth' class='text' type='text' name = 'month' value = '{{monthSelected}}' readonly></td>
+<tr><td align = 'right'>Time:</td><td><input id = 'clearTime' class='text' type='text' name = 'time' disabled readonly></td>
+<tr><td align = 'right'>Security Token:</td><td><input id = 'clearToken' class='text' type='text' name = 'token' readonly></td>
+<tr><td colspan = 2>&nbsp;</td></tr>
+<tr><td colspan = 2><b>Select an option below:</b></td></tr>
+<tr><td colspan = 2>&nbsp;</td></tr>
+<tr><td colspan = 2><button type='submit' class="yellow" name='option' value='one'>Clear selected watch only</button></td></tr>
+<tr><td colspan = 2><button type='submit' class="yellow" id="clearRegular" name='option' value='all'>Clear selected watch and all corresponding regular watches</button></td></tr>
+<tr><td colspan = 2><button class="yellow" onclick='clearModal.style.display = "none"'>Cancel</button></td></tr>
+</table>
+</form>
+</div>
+
+</div>
+
+<!-- Modal Take Watch -->
+<div id="takeModal" class="modal">
+
+<!-- Modal content -->
+<div class="modal-content">
+<span class="close" onclick='takeModal.style.display = "none"'>&times;</span>
+<h1 align='center'>Take this watch</h1>
+<p>&nbsp;</p>
+<form action='/roster/take' method='post' align='center' target='_parent'>
+<table align='center'>
+<tr><td align = 'right'>WatchKeeper:</td><td><input id = 'takeKeeper' class='text' type='text' name = 'Keeper' value = '{{watcher}}' readonly></td>
+<tr><td align = 'right'>Site:</td><td><input id = 'takeSite' class='text' type='text' name = 'Site' value = '{{site}}' readonly></td>
+<tr><td align = 'right'>Month:</td><td><input id = 'takeMonth' class='text' type='text' name = 'month' value = '{{monthSelected}}' readonly></td>
+<tr><td align = 'right'>Time:</td><td><input id = 'takeTime' class='text' type='text' name = 'Time' disabled readonly></td>
+<tr><td align = 'right'>Security Token:</td><td><input id = 'takeToken' class='text' type='text' name = 'token' readonly></td>
+<tr><td colspan = 2>&nbsp;</td></tr>
+<tr><td colspan = 2><b>Select an option below:</b></td></tr>
+<tr><td colspan = 2>&nbsp;</td></tr>
+<tr><td colspan = 2><button type='submit' class="yellow" name='option' value='one'>Take selected watch only</button></td></tr>
+<tr><td colspan = 2><button type='submit' class="yellow" id="takeRegular" name='option' value='all'>Take selected watch and all corresponding regular watches</button></td></tr>
+<tr><td colspan = 2><button class="yellow" onclick='takeModal.style.display = "none"'>Cancel</button></td></tr>
+</table>
+</form>
+</div>
+
+</div>
+
+
+<script>
+
+// Get the modal dialogs
+var takeModal = document.getElementById('takeModal');
+var clearModal = document.getElementById('clearModal');
+
+// define watch variables
+var watchKeeper = "";
+var site = "";
+var year = "";
+var month = "";
+var day = "";
+var hour = "";
+
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+if (event.target == takeModal) {
+takeModal.style.display = "none";
+}
+if (event.target == clearModal) {
+clearModal.style.display = "none";
+}
+}
+
+function changeMonth() {    //alert('selected:'+document.getElementById("myMonth").selectedIndex);
+location.replace("/roster/{{ watcherId }}/{{siteSelected}}/"+document.getElementById("myMonth").value);
+}
+function changeSite() {    //alert('selected:'+document.getElementById("mySite").selectedIndex);
+location.replace("/roster/{{ watcherId }}/"+document.getElementById("mySite").value+"/{{monthSelected}}");
+}
+function clearWatch(uuid,time,color) {
+if (color == 'gold') { document.getElementById('clearRegular').hidden = false }
+else { document.getElementById('clearRegular').hidden = true }
+document.getElementById('clearToken').value=uuid;
+document.getElementById('clearTime').value=time;
+clearModal.style.display = "block";
+}
+function takeWatch(uuid,time,regular) {
+if (regular == 'true') { document.getElementById('takeRegular').hidden = false }
+else { document.getElementById('takeRegular').hidden = true };
+document.getElementById('takeToken').value=uuid;
+document.getElementById('takeTime').value=time;
+takeModal.style.display = "block";
+}
+</script>
+
+
+</body>
+</html>

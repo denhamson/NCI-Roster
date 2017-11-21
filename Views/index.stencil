@@ -1,0 +1,36 @@
+<html>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="http://crypto-js.googlecode.com/svn/tags/3.0.2/build/rollups/hmac-sha256.js"></script>
+<script src="http://crypto-js.googlecode.com/svn/tags/3.0.2/build/components/enc-base64-min.js"></script>
+
+<script>
+$(document).ready(function(){
+var email,pass,token;
+$("#submit").click(function(){
+email=$("#email").val();
+pass=$("#password").val()
+//token = CryptoJS.enc.Base64.stringify(CryptoJS.HmacSHA256(email+pass, "secret"));
+$.post("/login",{email:email,token:pass}, function(data){
+if (data==='done') {
+window.location.href="{{routing}}";
+} else {
+document.getElementById('failed').innerHTML=data+" - Try again?"
+}
+});
+});
+});
+
+</script>
+
+
+<body>
+
+<h1>NCI {{station.name}}</h1>
+<h2>WatchKeeper: {{watchKeeper.name}}<h2>
+<input type="button" value="View Rosters" id="rosters">
+<input type="button" value="View WatchKeepers" id="rosters">
+
+</body>
+
+</html>

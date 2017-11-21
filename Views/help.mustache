@@ -1,0 +1,68 @@
+<div class="modal-content">
+<div class="modal-header" align='center'>
+<span class="close" onclick='modal.style.display="none";'>&times;</span>
+<h1>Help page/Operating Manual for interactive rosters application.</h1>
+</div>
+<div class="modal-body" align='left'>
+<h2>Main Roster Page.</h2>
+
+<h3>Color Codes.</h3>
+<table width='100%'>
+<tr><td width='15%'><button class='red'>&nbsp;</button></td><td width='85%'>Zero watchkeeper's assigned.  Volunteer required most urgently.  Interactive Button allows you to assign yourself to the vacant watch.</td></tr>
+<tr><td width='15%'><button class='blue'>&nbsp;</button></td><td width='85%'>One watchkeeper on double shift.  Assistant watchkeeper required urgently.  Interactive Button allows you to assign yourself to the vacant watch.</td></tr>
+<tr><td width='15%'><button class='orange'>&nbsp;</button></td><td width='85%'>One watchkeeper assigned.  Assistant watchkeeper appreciated.  Interactive Button allows you to assign yourself to the vacant watch.</td></tr>
+<tr><td width='15%'><button class='gold'>Your Name</button></td width='85%'><td>Yourself assigned as regular watchkeeper. Interactive Button allows you to change or remove this assignment.</td></tr>
+<tr><td width='15%'><button class='yellow'>Your Name</button></td><td width='85%'>Yourself assigned as ad-hoc watchkeeper. Interactive Button allows you to change or remove this assignment.</td></tr>
+{{#admin}}
+<tr><td width='15%'><button class='grey'>Another Name</button></td><td width='85%'>Named watchkeeper displayed over grey interactive button - watch assigned to named watchkeeper.  Fully editable by admin user(s).</td></tr>
+<tr><td width='15%'><button class='green'>Another Name</button></td><td width='85%'>Named watchkeeper displayed over green interactive button - watch assigned to named ad-hoc watchkeeper.  Fully editable by admin user(s).</td></tr>
+{{/admin}}
+<tr><td width='15%' class='white'>Another Name</td><td width='85%'>Named watchkeeper displayed over white backround - watch in the past or watch assigned to named regular watchkeeper.  Not editable.</td></tr>
+</table>
+<h3>General Notes.</h3>
+<p>Watches in the past are no longer interactive or editable.</p>
+<p>Watchkeepers can only edit their own assignments, other assignments are only editable by the designated Roster Manager(s).</p>
+
+<p>The new rosters pages can be accessed either via the link on the main NCI Mundesley web site ( yet to be implemented )</p>
+
+<p>Watch-keepers and Roster Manager(s) will need to log on by providing an email address and password but will normally be able to save the address and password in their web browser password list.</p>
+
+<p>Once logged in watch keepers can add the rosters page to their internet favourites if so desired to get direct access without first connecting to the main website.</p>
+
+<p>After login the default rosters page pops up displaying the Beach Road roster for the current month</p>
+
+<p>There are two selection boxes displayed at the top of the main page to choose between Vale Road and Beach Road and to choose the month displayed.</p>
+
+<p>The Roster list for the displayed location and month are tabulated, similar to the current rosters, with watch times across the page and dates of month down the page.</p>
+
+<p>For each watch time two columns are displayed showing either assigned watch keeper or “Vacant Watch”. ( Color coded as above ).</p>
+
+<p>Menu options at top right of page provide interactive popup dialogs for logout, viewing and editing your profile{{#admin}}, viewing and editing the watchkeeper list{{/admin}} and displaying this 'help' page</p>
+
+<h2>Popup dialog for viewing and editing your watch assignments.  Activated from main roster page.</h2>
+
+<p>Displays a (possibly empty) table of watch keepers that have already been assigned along with interactive buttons to allow the assigned watch keeper to vacate either the current watch only or both current and future watches for this timeslot.</p>
+
+<p>If you are not already part of the watch and the watch is not full then it will also shows an additional line in table to allow you to assign yourself to the vacant watch.</p>
+
+<p>Watchkeeper can only assign themselves to a vacant watch and/or remove themselves from any currently assigned watches.  Roster manager(s) have the ability to assign and remove anyone from watches but it is preferred for all watchkeepers to manage thier own assignments to give Roster manager more time to deal with 'Red' watches.</p>
+
+<h2>Popup dialog for viewing and editing your profile.  Activated from menu options on right of main page.</h2>
+
+<p>Simple web form to allow name, email and role to be edited and an update button to activate the change.</p>
+<p>Optionally allows for passwords to be edited.</p>
+
+{{#admin}}
+'<h2>Popup dialog for viewing and editing watchkeeper database.  Activated from menu options on right of main page.</h2>
+
+<p>(Manages a list of authorised watch keepers and allows new watch keepers to be added and existing watch keeper profiles to be edited.)</p>
+
+<p>Variation on the profile dialog that is only accessible to roster manager(s) and additionally shows a selection box at top of the dialog to select the watch keeper to be viewed and edited and allows new watch keepers to be added.</p>
+
+{{/admin}}
+<br>
+</div>
+<div class="modal-footer">
+<br>
+</div>
+</div>

@@ -1,0 +1,36 @@
+<div class="modal-content">
+<div class="modal-header" align='center'>
+<span class="close" onclick='modal.style.display="none";loadDoc("/rosters/{{site}}/{{month}}/","manage");'>&times;</span>
+<h1>View/Edit Roster</h1>
+<h2>WatchTime: {{time}}</h2>
+<h2>Number of Watchkeepers: &nbsp;&nbsp;&nbsp; {{keepers.count}}</h2>
+</div>
+<div class="modal-body">
+<table border = 1 align='center'>
+<thead><tr><td>Watch Keeper Name</td><td>Unique Identifier</td><td>Regular or AdHoc</td><td align='center'>Select Action</td></tr></thead>
+{{#keepers}}
+<tr>
+<td >{{name}}</td><td>{{uuid}}</td>
+<td>{{#regular}}Regular Watchkeeper{{/regular}}{{^regular}}Ad Hoc Watchkeeper{{/regular}}</td>
+<td>
+{{#editable}}
+<button id='deleteAdHoc' class = 'large' onclick="loadDoc('/roster/{{roster}}/{{uuid}}/AdHoc/Delete/','modal');">Delete from this watch</button>
+{{#regular}}
+<button id='deleteRegular' class = 'large' onclick="loadDoc('/roster/{{roster}}/{{uuid}}/Regular/Delete/','modal');">Delete from this and future watches</button>{{/regular}}{{/editable}}</td>
+</tr>
+{{/keepers}}
+{{^complete}}
+<tr>
+<td colspan=2 ><select id='assignSelection'>{{#available}}<option value='{{uuid}}'>{{name}} - {{uuid}}</option>{{/available}}</select></td>
+<td><select id='assignType' onchange='changeAssignType();'><option value='AdHoc'>Ad Hoc Watch</option><option value='Regular'>Regular Watch</option></select></td>
+<td><button id='assignButton' class = 'large' onclick="var uuid = document.getElementById('assignSelection').value; var type = document.getElementById('assignType').value; loadDoc('/roster/{{roster}}/'+uuid+'/'+type+'/Assign/','modal');">Assign New Ad Hoc Watchkeeper</button></td>
+<tr>
+{{/complete}}
+</table>
+</div>
+<div class="modal-footer" align='center'>
+<br>
+<button class = 'large' onclick='modal.style.display="none";loadDoc("/rosters/{{site}}/{{month}}/","manage");'>Return to Rosters</button>
+<br>
+</div>
+</div>

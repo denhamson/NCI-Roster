@@ -1,0 +1,38 @@
+<h1 align='center'>{{siteSelected}} - {{monthSelected}}</h1>
+</h2>
+<table border = 1 align = 'center'>
+<thead>
+<tr>
+<td colspan = 2 align='center'>Day of Month</td>
+{% for watch in watches %}
+<td align='center'>{{ watch.watch }}</td>
+{% endfor %}
+</tr>
+</thead>
+<tbody>
+{% for day in days %}
+<tr>
+<td align='center' class='{{day.weekday}}'>{{ day.weekday }}</td>
+<td align='center' class='{{day.weekday}}'>{{ day.day }}</td>
+{% for watch in day.watches %}
+<td align='center'>
+<div>
+{% if watch.class1  %}
+<button class='{{watch.class1}}' onclick="modal.style.display = 'block';loadDoc('/roster/{{watch.rosterId}}/','modal');">{{ watch.watch1 }}</button>
+{% else %}
+<span class='white'>&nbsp;{{ watch.watch1 }}&nbsp;</span>
+{% endif %}
+</div>
+{% if watch.class2 %}
+<div>
+<button class='{{watch.class2}}' onclick="modal.style.display = 'block';loadDoc('/roster/{{watch.rosterId}}/','modal');">{{ watch.watch2 }}</button>
+{% else %}
+<span class='white'>&nbsp;{{ watch.watch2 }}&nbsp;</span>
+{% endif %}
+</div>
+</td>
+{% endfor %}
+</tr>
+{% endfor %}
+</tbody>
+</table>

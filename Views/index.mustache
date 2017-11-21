@@ -1,0 +1,370 @@
+<html>
+<head>
+<style>
+td.Sunday {
+color: red;
+}
+td.Saturday {
+color: red;
+}
+.red {
+background-color:red;
+color:white;
+font-weight:bold;
+font-size:large;
+width: 100%;
+}
+.white {
+background-color:white;
+font-weight:bold;
+font-size:large;
+}
+.blue {
+background-color:cyan;
+font-weight:bold;
+font-size:large;
+width: 100%;
+}
+.orange {
+background-color:orange;
+font-weight:bold;
+font-size:large;
+width: 100%;
+}
+.green {
+background-color:green;
+color:white;
+font-weight:bold;
+font-size:large;
+width: 100%;
+}
+.lime {
+background-color:green;
+color:white;
+font-weight:bold;
+font-size:large;
+width: 100%;
+}
+.yellow {
+background-color:yellow;
+font-weight:bold;
+font-size:large;
+width: 100%;
+}
+.gold {
+background-color:gold;
+font-weight:bold;
+font-size:large;
+width: 100%;
+}
+.grey {
+background-color:lightgray;
+font-weight:bold;
+font-size:large;
+width: 100%;
+}
+.text {
+size:50;
+}
+.extralargebold {
+font-size: x-large;
+font-weight: bold;
+}
+.large {
+font-size: x-large;
+}
+.menu {
+background-color:cyan;
+align: center;
+width: 100%;
+}
+.text {
+size:50;
+}
+.cyan {
+background-color:cyan;
+}
+
+div.popup {
+width: 80%;
+background-color:powderblue;
+align:left;
+}
+
+div.admin {
+color:red;
+}
+
+table,th,td {
+border : 1px solid black;
+border-collapse: collapse;
+}
+
+th,td {
+padding: 5px;
+}
+
+/* The Modal (background) */
+.modal {
+display: none; /* Hidden by default */
+position: fixed; /* Stay in place */
+z-index: 1; /* Sit on top */
+left: 0;
+top: 0;
+width: 100%; /* Full width */
+height: 100%; /* Full height */
+overflow: auto; /* Enable scroll if needed */
+background-color: rgb(0,0,0); /* Fallback color */
+background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+-webkit-animation-name: fadeIn; /* Fade in the background */
+-webkit-animation-duration: 0.4s;
+animation-name: fadeIn;
+animation-duration: 0.4s
+}
+
+/* Modal Content */
+.modal-content {
+background-color: #fefefe;
+margin: 15% auto;
+width: 80%;
+-webkit-animation-name: slideIn;
+-webkit-animation-duration: 0.4s;
+animation-name: slideIn;
+animation-duration: 0.4s
+}
+
+/* The Close Button */
+.close {
+color: white;
+float: right;
+font-size: 28px;
+font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+color: #000;
+text-decoration: none;
+cursor: pointer;
+}
+
+.modal-header {
+padding: 2px 16px;
+background-color: #5cb85c;
+color: white;
+}
+
+.modal-body {padding: 2px 16px;}
+
+.modal-footer {
+padding: 2px 16px;
+background-color: #5cb85c;
+color: white;
+}
+
+/* Add Animation */
+@-webkit-keyframes slideIn {
+from {bottom: -300px; opacity: 0}
+to {bottom: 0; opacity: 1}
+}
+
+@keyframes slideIn {
+from {bottom: -300px; opacity: 0}
+to {bottom: 0; opacity: 1}
+}
+
+@-webkit-keyframes fadeIn {
+from {opacity: 0}
+to {opacity: 1}
+}
+
+@keyframes fadeIn {
+from {opacity: 0}
+to {opacity: 1}
+}
+
+</style>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+<script>
+
+function manageRosters() {
+var siteSelected = document.getElementById("mySite").value
+var monthSelected = document.getElementById("myMonth").value
+loadDoc("/rosters/"+siteSelected+"/"+monthSelected+"/","manage")
+}
+
+function manageWatchkeepers() {
+loadDoc("/watchkeepers/","manage")
+}
+
+function loadDoc(url,id) {
+var xhttp = new XMLHttpRequest();
+xhttp.onreadystatechange = function() {
+if (this.readyState == 4 && this.status == 200) {
+document.getElementById(id).innerHTML = this.responseText;
+}
+};
+xhttp.open("GET", url, true);
+xhttp.send();
+}
+
+function updateWatchkeeper(uuid) {
+var name = document.getElementById("wname").value;
+var email = document.getElementById("wemail").value;
+var role = document.getElementById("wrole").value;
+var newpass = document.getElementById("wpassword").value;
+var confirm = document.getElementById("wconfirm").value;
+if (newpass != confirm ) {
+    alert("Optional New Password and Confirm Password values must be equal")
+}
+var token = (newpass != "") ? newpass.mashUp() : ""
+if (name==""||role=="") {
+alert("required fields missing");
+} else {
+var xhttp;
+xhttp = new XMLHttpRequest();
+xhttp.onreadystatechange = function() {
+if (this.readyState == 4 && this.status == 200) {
+document.getElementById("watcher").innerHTML = this.responseText;
+}
+};
+xhttp.open("POST", "/watchkeeper/"+uuid+"/"+name+"/"+role+"/"+email+"/"+token+"/", true);
+xhttp.send();
+}
+}
+
+function updateProfile(uuid) {
+var name = document.getElementById("name").value;
+var email = document.getElementById("email").value;
+var role = document.getElementById("role").value;
+var newpass = document.getElementById("password").value;
+var confirm = document.getElementById("confirm").value;
+if (newpass != confirm ) {
+alert("Optional New Password and Confirm Password values must be equal")
+}
+var token = (newpass != "") ? newpass.mashUp() : ""
+if (name==""||role=="") {
+alert("required fields missing");
+} else {
+var xhttp;
+xhttp = new XMLHttpRequest();
+xhttp.onreadystatechange = function() {
+if (this.readyState == 4 && this.status == 200) {
+document.getElementById("modal").innerHTML = this.responseText;
+}
+};
+xhttp.open("POST", "/profile/"+uuid+"/"+name+"/"+role+"/"+email+"/"+token+"/", true);
+xhttp.send();
+}
+}
+
+function changeAssignType(){
+document.getElementById('assignButton').innerHTML='Assign New '+document.getElementById('assignType').value+' Watchkeeper';
+}
+
+function assignNewWatchKeeper(){
+var uuid = document.getElementById('assignSelection').value;
+var type = document.getElementById('assignType').value;
+loadDoc('/roster/'+roster+'/'+uuid+'/'+type+'/Assign/','manage');
+}
+
+$(document).ready(function(){
+    $("#logout").click(function(){
+        $.post("/logout" ,function(data){
+            if (data==='done') {
+                window.location.href="/";
+            }
+        });
+    });
+});
+
+
+</script>
+
+</head>
+<body onload='loadDoc("/rosters/","manage");'>
+<span class='close'>
+<div><input type="button" value="Logout" id="logout" class="menu"  onclick='location.assign("/logout/");'></div>
+<div><input type="button" value="Help" id="help" class="menu" onclick='modal.style.display = "block";loadDoc("/help/","modal")';'></div>
+<div><input type="button" value="My Profile" id="help" class="menu" onclick='modal.style.display = "block";loadDoc("/profile/","modal")';'></div>
+{{#manager}}
+<div><input type='button' value='Watchkeepers' class = 'menu' onclick='modal.style.display = "block";loadDoc("/watchkeepers/","modal");'></div>
+{{/manager}}
+</span>
+<h1 align = 'center'>NCI {{station}} - Duty Rosters Application</h1>
+<h2 align = 'center'>
+&nbsp;User: {{name}}&nbsp;&nbsp;&nbsp;&nbsp;
+<select id="mySite" class='large' onchange='manageRosters();'>
+{{#sites}}
+<option value = '{{uuid}}' {{selected}} > {{name}} </option>
+{{/sites}}
+</select>
+-
+<select id="myMonth" class='large' onchange='manageRosters();'>
+{{#months}}
+<option value = '{{key}}' {{selected}} > {{value}} </option>
+{{/months}}
+</select>
+
+<h2 align = 'center'><b>Select the site and month above to view monthly Rosters.</b></h2>
+
+<div id='manage', align='center'>
+</div>
+
+<!-- The Modal -->
+<div id="modal" class="modal">
+
+<!-- Modal content -->
+<div class="modal-content">
+<div class="modal-header">
+<span class="close" onclick="modal.style.display = 'none';">&times;</span>
+<h2>Modal Header</h2>
+</div>
+<div class="modal-body">
+<p>Some text in the Modal Body</p>
+<p>Some other text...</p>
+</div>
+<div class="modal-footer">
+<h3>Modal Footer</h3>
+</div>
+</div>
+
+</div>
+
+<script>
+
+// Get the modal
+var modal = document.getElementById('modal');
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+if (event.target == modal) {
+location.reload();
+}
+}
+
+String.prototype.mashUp = function() {
+var hash = 0, i, chr;
+if (this.length === 0) return hash;
+for (i = 0; i < this.length; i++) {
+chr   = this.charCodeAt(i);
+hash  = ((hash << 5) - hash) + chr;
+hash |= 0; // Convert to 32bit integer
+}
+return hash;
+};
+
+function toggle_visibility(id) {
+var e = document.getElementById(id);
+if(e.style.display == 'block')
+e.style.display = 'none';
+else
+e.style.display = 'block';
+}</script>
+
+</body>
+
+</html>
+

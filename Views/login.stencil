@@ -1,0 +1,43 @@
+<html>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+        var email,pass,token;
+        $("#submit").click(function(){
+            email=$("#email").val();
+            pass=$("#password").val().mashUp();
+            $.post("/login",{email:email,token:pass}, function(data){
+                if (data==='done') {
+                    window.location.href="{{routing}}";
+                } else {
+                    document.getElementById('failed').innerHTML=data+" - Try again?"
+                }
+            });
+        });
+    });
+
+String.prototype.mashUp = function() {
+var hash = 0, i, chr;
+if (this.length === 0) return hash;
+for (i = 0; i < this.length; i++) {
+chr   = this.charCodeAt(i);
+hash  = ((hash << 5) - hash) + chr;
+hash |= 0; // Convert to 32bit integer
+}
+return hash;
+};
+
+</script>
+
+
+<body>
+
+<h1 id="failed">Please login</h1>
+<input type="text" size="40" placeholder="Type your email" id="email"><br />
+<input type="password" size="40" placeholder="Type your password" id="password"><br />
+<input type="button" value="Submit" id="submit">
+
+</body>
+
+</html>

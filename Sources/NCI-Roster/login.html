@@ -1,0 +1,29 @@
+<html>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+                      var email,pass;
+                      $("#submit").click(function(){
+                                         email=$("#email").val();
+                                         pass=$("#password").val();
+                                         /*
+                                          * Add your authentication here
+                                          */
+                                         $.post("http://localhost:8080/login",{email:email}, function(data){
+                                                if(data==='done')
+                                                {
+                                                window.location.href="/";
+                                                }
+                                                });
+                                         });
+                      });
+    </script>
+
+
+<body>
+<h1>Please login</h1>
+<input type="text" size="40" placeholder="Type your email" id="email"><br />
+<input type="password" size="40" placeholder="Type your password" id="password"><br />
+<input type="button" value="Submit" id="submit">
+</body>
+</html>

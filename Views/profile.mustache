@@ -1,0 +1,27 @@
+<div class="modal-content">
+<div class="modal-header" align='center'>
+<span class="close" onclick='modal.style.display="none";'>&times;</span>
+<h1>My Profile</h1>
+</div>
+<div class="modal-body" align='center'>
+<table>
+<tr><td colspan = 2><h4>ID: {{uuid}}</h4></td></tr>
+<tr><td>Name:<td><input id='name' type='text' name = 'name' size=50 value='{{name}}'></td></tr>
+<tr><td>Email Address:</td><td><input id='email' type='email' name = 'emailAddress' size=50 value='{{emailAddress}}'></td></tr>
+<tr><td>Change Password?:</td><td><input type='checkbox' onchange='toggle_visibility("hide1"); toggle_visibility("hide2");' value='true'></td></tr>
+<tr id='hide1'><td>New Password:</td><td><input id='password' type='password' name='password' size=50 value=''></td></tr>
+<tr id='hide2'><td>Confirm Password:</td><td><input id='confirm' type='password' name='confirm' size=50 value=''></td></tr>
+<tr><td>Role:</td><td>
+<select id='role' name = 'role'>
+{{#roles}}
+<option value = {{value}} {{selected}} >{{role}}</option>
+{{/roles}}
+</select>
+</td></tr>
+<tr><td colspan = 2 align = 'center'><button class='large' onclick='if (document.getElementById("password").value == document.getElementById("confirm").value ) {updateProfile("{{uuid}}");} else { alert("New Password and Confirm Password values must be equal"); }'>Update watchkeeper</td></tr>
+</table>
+</div>
+<div class="modal-footer">
+<br>
+</div>
+</div>

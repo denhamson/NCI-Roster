@@ -1,0 +1,35 @@
+<html>
+<head>
+<style>
+td.Sunday {
+color: red;
+}
+
+td.Saturday {
+color: red;
+}
+button.red {
+background-color:red;
+}
+button.blue {
+background-color:cyan;
+}
+button.orange {
+background-color:orange;
+}
+button.green {
+background-color:green;
+}
+button.yellow {
+background-color:yellow;
+}
+</style>
+</head>
+<body>
+<h1>{{ count }}</h1>
+{% for watcher in watchers %}
+<h2>WatchKeeper: {{ watcher.watcher }}</h2>
+{% endfor %}
+
+</body>
+</html>

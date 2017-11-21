@@ -1,0 +1,15 @@
+<table>
+<tr><td colspan = 2><h4>ID: {{uuid}}</h4></td></tr>
+<tr><td>Name:<td><input id='wname' type='text' name = 'name' size=50 value='{{name}}'></td></tr>
+<tr><td>Email Address:</td><td><input id='wemail' type='email' name = 'emailAddress' size=50 value='{{emailAddress}}'></td></tr>
+<tr><td>New Password:</td><td><input id='wpassword' type='password' name='password' size=50 value=''></td></tr>
+<tr><td>Confirm Password:</td><td><input id='wconfirm' type='password' name='confirm' size=50 value=''></td></tr>
+<tr><td>Role:</td><td>
+<select id='wrole' name = 'role'>
+{{#roles}}
+<option value = {{value}} {{selected}} >{{role}}</option>
+{{/roles}}
+</select>
+</td></tr>
+<tr><td colspan = 2 align = 'center'><button class='large' onclick='if (document.getElementById("wpassword").value == document.getElementById("wconfirm").value ) {updateWatchkeeper("{{uuid}}");} else { alert("New Password and Confirm Password values must be equal"); }'>Update watchkeeper</td></tr>
+</table>
