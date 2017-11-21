@@ -230,7 +230,7 @@ router.get("/roster/:rosterId/:keeperId?/:type?/:action?") {
         if let rosterId = request.parameters["rosterId"], let keeperId = request.parameters["keeperId"], let type = request.parameters["type"], let action = request.parameters["action"] {
             try NCIRoster.updateRoster(rosterId: rosterId, keeperId: keeperId, type: type, action: action)
         }
-        var sess = request.session
+        let sess = request.session
         if let sess = sess, let userId = sess["userId"].string, let rosterId = request.parameters["rosterId"] {
             try response.render("roster.mustache", context: NCIRoster.rosterContext(userId: userId, rosterId: rosterId)).end()
         } else {
@@ -250,28 +250,4 @@ router.post("/roster/take/") {
     let option = request.queryParameters["option"] ?? ""
     response.send("alert('Take selected for "+option+" @ "+token+"');")
 }
-
-/*
- Realm.Configuration.defaultConfiguration = Realm.Configuration(
-    schemaVersion: 1,
-    migrationBlock: { migration, oldSchemaVersion in
-        if (oldSchemaVersion < 1) {
-            var station = [NCIStation]()
-            migration.enumerateObjects(ofType: NCIStation.className()) { oldObject, newObject in
-                station = newObject.  // only one
-            }
-            migration.enumerateObjects(ofType: NCIWatchKeeper.className()) { oldObject, newObject in
-                // add empty station object
-                newObject!["Station"] = station
-            }
-        }
-})
- */
-
-    // Add an HTTP server and connect it to the router
-    Kitura.addHTTPServer(onPort: 8080, with: router)
-    
-    // Start the Kitura runloop (this call never returns)
-    Kitura.run()
- 
 
